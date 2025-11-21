@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hillzadev | Neuromorphic Architect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        'bg-main': '#050505',
+                        'cyan-glow': '#22d3ee', 
+                        'purple-glow': '#a855f7',
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050505; color: #e5e5e5; overflow-x: hidden; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+        canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+        }
+
+        .circuit-border {
+            position: relative;
+        }
+        .circuit-border::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(45deg, transparent, rgba(34, 211, 238, 0.3), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.7s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Timeline Circuit Effect */
+        .timeline-line {
+            width: 2px;
+            background: #1f2937;
+            position: absolute;
+            top: 0; bottom: 0; left: 20px;
+            z-index: 0;
+        }
+        .timeline-progress {
+            width: 2px;
+            background: linear-gradient(to bottom, #22d3ee, #a855f7);
+            position: absolute;
+            top: 0; left: 20px;
+            height: 0%; /* Javascript will animate this */
+            z-index: 1;
+            transition: height 0.1s linear;
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+
+        .blinking-cursor::after { content: '█'; animation: blink 1s step-start infinite; color: #22d3ee; margin-left: 2px; }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body class="antialiased selection:bg-cyan-500/20 selection:text-cyan-200">
+
+    <canvas id="snn-canvas"></canvas>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-black/80 backdrop-blur-xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+            <div class="font-mono font-bold text-white tracking-tighter text-lg flex items-center gap-2">
+                <span class="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></span>
+                ALEX_DOE<span class="text-gray-600">.v4</span>
+            </div>
+            <div class="hidden md:flex gap-8 text-[11px] font-mono tracking-widest uppercase text-gray-500">
+                <a href="#experience" class="hover:text-cyan-400 transition">Protocol</a>
+                <a href="#architecture" class="hover:text-cyan-400 transition">Systems</a>
+                <a href="#contact" class="text-cyan-500 hover:text-white transition border border-cyan-500/30 px-3 py-1 rounded">Initialize</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center px-6 relative pt-20">
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-3 gap-12 items-center">
+            <div class="md:col-span-2">
+                <div class="font-mono text-xs text-cyan-400 mb-6 bg-cyan-900/10 border border-cyan-500/20 inline-block px-3 py-1 rounded">
+                    <span id="typewriter"></span><span class="blinking-cursor"></span>
+                </div>
+
+                <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                    Engineering the <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600">Silicon Synapse.</span>
+                </h1>
+                
+                <p class="text-lg text-gray-400 max-w-2xl leading-relaxed mb-10">
+                    Senior Staff Engineer at <strong class="text-white">Google</strong>. 
+                    Bridging the gap between <span class="text-white">deep learning at scale</span> and <span class="text-white">neuromorphic hardware</span>.
+                    Architecting systems where software mimics biology.
+                </p>
+
+                <div class="flex gap-4">
+                    <a href="#experience" class="bg-white text-black px-8 py-4 text-sm font-bold rounded hover:bg-gray-200 transition">
+                        View Progression
+                    </a>
+                    <a href="#architecture" class="px-8 py-4 text-sm font-bold text-gray-400 border border-white/10 rounded hover:border-cyan-400/50 hover:text-white transition glass-panel">
+                        System Architecture
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Abstract HUD Graphic -->
+            <div class="hidden md:block relative opacity-80">
+                <div class="absolute inset-0 bg-cyan-500 blur-[120px] opacity-10 rounded-full"></div>
+                <div class="glass-panel p-6 rounded-lg text-xs font-mono space-y-4 border-l-2 border-cyan-500">
+                    <div class="flex justify-between text-gray-500">
+                        <span>STATUS</span>
+                        <span class="text-green-400">ONLINE</span>
+                    </div>
+                    <div class="flex justify-between text-gray-500">
+                        <span>LOC</span>
+                        <span class="text-white">ATLANTA, GA</span>
+                    </div>
+                    <div class="h-px bg-white/10"></div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>SNN_MODEL</span> <span class="text-cyan-400">84%</span></div>
+                        <div class="w-full bg-gray-800 h-1 rounded"><div class="bg-cyan-400 h-1 rounded" style="width: 84%"></div></div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex justify-between"><span>RL_AGENTS</span> <span class="text-purple-400">92%</span></div>
+                        <div class="w-full bg-gray-800 h-1 rounded"><div class="bg-purple-400 h-1 rounded" style="width: 92%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Major Systems (New Section) -->
+    <section id="architecture" class="py-24 px-6 border-y border-white/5 bg-white/[0.01]">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="text-2xl font-bold text-white">Key Architectures</h2>
+                <div class="h-px bg-gray-800 flex-grow"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- BOS System -->
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-1 transition duration-500 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 bg-purple-500/10 rounded-lg text-purple-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </div>
+                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">Ads Infrastructure</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition">Budgeting Optimization System (BOS)</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        Architected the real-time dynamic allocation engine for Google Ads. Utilized Reinforcement Learning to adjust spend pacing across millions of concurrent campaigns, balancing delivery guarantees with ROI.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] font-mono bg-white/5 px-2 py-1 rounded text-gray-400">Reinforcement Learning</span>
+                        <span class="text-[10px] font-mono bg-white/5 px-2 py-1 rounded text-gray-400">Distributed Systems</span>
+                    </div>
+                </div>
+
+                <!-- Neuromorphic Edge -->
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-1 transition duration-500 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 bg-cyan-500/10 rounded-lg text-cyan-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">R&D / Hardware</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">Hybrid SNN Edge Runtime</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        Currently leading the design of a low-power runtime for Spiking Neural Networks. Enabling event-based processing on edge devices, reducing power consumption by 40% compared to standard ANN inference.
+                    </p>
+                    <div class="flex gap-2">
+                        <span class="text-[10px] font-mono bg-white/5 px-2 py-1 rounded text-gray-400">Custom Silicon</span>
+                        <span class="text-[10px] font-mono bg-white/5 px-2 py-1 rounded text-gray-400">Edge AI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section id="experience" class="py-32 px-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold text-white mb-16 reveal">Operational History</h2>
+
+            <div class="relative pl-8 md:pl-12">
+                <!-- Animated Line -->
+                <div class="timeline-line"></div>
+                <div class="timeline-progress" id="progress-bar"></div>
+
+                <!-- Job 1 -->
+                <div class="reveal relative pb-20">
+                    <div class="absolute -left-[27px] md:-left-[37px] top-1 w-4 h-4 rounded-full bg-cyan-500 border-4 border-[#050505] shadow-[0_0_15px_rgba(34,211,238,0.5)] z-10"></div>
+                    
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-white">Senior Staff Software Engineer</h3>
+                        <span class="font-mono text-sm text-cyan-400">Google / Feb 2025 — Present</span>
+                    </div>
+                    
+                    <div class="glass-panel p-6 rounded-lg border-l-2 border-cyan-500/50">
+                        <p class="text-gray-300 mb-4 font-medium">Neuromorphic Computing & Hybrid AI</p>
+                        <ul class="space-y-2 text-sm text-gray-400 list-disc list-inside marker:text-cyan-500/50">
+                            <li>Integration of <strong>spiking neural networks (SNNs)</strong> into scalable production systems.</li>
+                            <li>Designing neuromorphic algorithms optimized for low-power edge devices.</li>
+                            <li>Driving cross-functional efforts for custom AI accelerators (TPU/ASIC).</li>
+                            <li>Publishing internal whitepapers on brain-inspired computing paradigms.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Job 2 -->
+                <div class="reveal relative pb-20">
+                    <div class="absolute -left-[27px] md:-left-[37px] top-1 w-4 h-4 rounded-full bg-gray-800 border-4 border-[#050505] z-10"></div>
+                    
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-300">Staff Software Engineer</h3>
+                        <span class="font-mono text-sm text-gray-500">Google / 2022 — 2025</span>
+                    </div>
+                    
+                    <div class="pl-2 border-l border-white/5">
+                        <p class="text-gray-400 mb-2 text-sm">Ads ML Infrastructure</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li>Architected the <strong>Budgeting Optimization System (BOS)</strong> using Reinforcement Learning.</li>
+                            <li>Built real-time pipelines for ML model training on ad-click data.</li>
+                            <li>Partnered with Site Reliability Engineering (SRE) to ensure 99.999% availability.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Job 3 -->
+                <div class="reveal relative pb-20">
+                    <div class="absolute -left-[27px] md:-left-[37px] top-1 w-4 h-4 rounded-full bg-gray-800 border-4 border-[#050505] z-10"></div>
+                    
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-300">Senior Software Engineer</h3>
+                        <span class="font-mono text-sm text-gray-500">Google / 2020 — 2022</span>
+                    </div>
+                    
+                    <div class="pl-2 border-l border-white/5">
+                        <p class="text-gray-400 mb-2 text-sm">Workspace (Chat & Drive)</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li>Led backend improvements for collaboration workflows in Google Drive.</li>
+                            <li>Implemented CI/CD pipelines reducing deployment times by 60%.</li>
+                            <li>Drove engineering standards and mentorship for junior team members.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Job 4 -->
+                <div class="reveal relative">
+                    <div class="absolute -left-[27px] md:-left-[37px] top-1 w-4 h-4 rounded-full bg-gray-800 border-4 border-[#050505] z-10"></div>
+                    
+                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-300">Software Engineer</h3>
+                        <span class="font-mono text-sm text-gray-500">Google / 2018 — 2020</span>
+                    </div>
+                    
+                    <div class="pl-2 border-l border-white/5">
+                        <p class="text-gray-400 mb-2 text-sm">Google Lens</p>
+                        <ul class="space-y-2 text-sm text-gray-500">
+                            <li>Contributed to real-time image recognition features for Google Lens.</li>
+                            <li>Enhanced recommendation systems using large-scale data analysis.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-32 px-6 text-center">
+        <div class="max-w-2xl mx-auto reveal">
+            <div class="inline-block p-4 rounded-full bg-cyan-500/10 text-cyan-400 mb-6">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+            </div>
+            <h2 class="text-4xl font-bold text-white mb-6">Initiate Handshake</h2>
+            <p class="text-gray-400 mb-10">
+                Interested in discussing the future of neuromorphic computing or hybrid AI architectures?
+            </p>
+            <a href="mailto:alex.doe@google.com" class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold rounded hover:bg-cyan-500 hover:text-white transition duration-300">
+                <span>Send Signal</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            </a>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 py-8 text-center">
+        <p class="text-gray-600 font-mono text-xs">
+            © 2025 Leto . System status: <span class="text-green-500">Normal</span>.
+        </p>
+    </footer>
+
+    <script>
+        // 1. Circuit Line Animation (Timeline)
+        window.addEventListener('scroll', () => {
+            const timeline = document.getElementById('experience');
+            const progressBar = document.getElementById('progress-bar');
+            const rect = timeline.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+            
+            if (rect.top < windowHeight && rect.bottom > 0) {
+                let percentage = (windowHeight - rect.top) / rect.height * 100;
+                // Clamp between 0 and 100
+                percentage = Math.max(0, Math.min(100, percentage));
+                // Offset slightly for visual appeal
+                progressBar.style.height = `${percentage}%`;
+            }
+        });
+
+        // 2. Reveal Elements
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // 3. Typewriter
+        const text = "> initializing_neural_architect...";
+        const typeElement = document.getElementById('typewriter');
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                typeElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, 50);
+            }
+        }
+        setTimeout(type, 500);
+
+        // 4. SNN Background (Cyber-Organic)
+        const canvas = document.getElementById('snn-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let neurons = [];
+
+        window.addEventListener('resize', () => { resize(); init(); });
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Neuron {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.4;
+                this.vy = (Math.random() - 0.5) * 0.4;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.pulse = 0;
+                this.pulseSpeed = Math.random() * 0.01 + 0.005;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+                this.pulse += this.pulseSpeed;
+                if (this.pulse > 1) this.pulse = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                // Cyan to Purple random variation
+                const isCyan = Math.random() > 0.5;
+                const alpha = 0.2 + (this.pulse > 0.9 ? (this.pulse - 0.9)*10 : 0);
+                ctx.fillStyle = isCyan 
+                    ? `rgba(34, 211, 238, ${alpha})` 
+                    : `rgba(168, 85, 247, ${alpha})`;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            neurons = [];
+            for(let i=0; i<70; i++) neurons.push(new Neuron());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            for (let i = 0; i < neurons.length; i++) {
+                neurons[i].update();
+                neurons[i].draw();
+                for (let j = i; j < neurons.length; j++) {
+                    let dx = neurons[i].x - neurons[j].x;
+                    let dy = neurons[i].y - neurons[j].y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        let alpha = (1 - dist/150) * 0.1;
+                        if (neurons[i].pulse > 0.9 || neurons[j].pulse > 0.9) {
+                            ctx.strokeStyle = `rgba(34, 211, 238, ${alpha + 0.3})`;
+                        } else {
+                            ctx.strokeStyle = `rgba(100, 100, 100, ${alpha})`;
+                        }
+                        ctx.moveTo(neurons[i].x, neurons[i].y);
+                        ctx.lineTo(neurons[j].x, neurons[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        resize();
+        init();
+        animate();
+    </script>
+</body>
+</html>
