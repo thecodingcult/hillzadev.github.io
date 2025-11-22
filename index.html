@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Social Media Meta Tags -->
     <title>Hillzadev | Neuromorphic Architect</title>
+    <meta name="description" content="Senior Staff Engineer at Google. Architecting the next generation of biological computing and SNNs.">
+    <meta property="og:title" content="Hillzadev | Neuromorphic Architect">
+    <meta property="og:description" content="Senior Staff Engineer at Google. Architecting the next generation of biological computing and SNNs.">
+    <meta property="og:image" content="https://hillzadev.github.io/images/hillzadev.png">
+    <meta property="og:url" content="https://hillzadev.github.io">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Custom Microchip Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23050505' stroke='%2322d3ee' stroke-width='6'/><circle cx='50' cy='50' r='15' fill='%23a855f7'/></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <script>
@@ -155,23 +168,14 @@
                 </div>
             </div>
             
-            <!-- Profile Photo (Spans 5 columns - Replaces HUD) -->
+            <!-- Profile Photo (Spans 5 columns) -->
             <div class="md:col-span-5 flex justify-center md:justify-end order-1 md:order-2 relative">
-                <!-- Background Glow -->
                 <div class="absolute inset-0 bg-cyan-500 blur-[100px] opacity-20 rounded-full pointer-events-none"></div>
-                
-                <!-- The "Neural Portal" Image Container -->
                 <div class="profile-container reveal">
-                    <!-- Rotating Glow Ring -->
                     <div class="profile-ring"></div>
-                    
-                    <!-- The Image Itself -->
                     <div class="profile-image-wrapper">
-                        <!-- UPDATED IMAGE SOURCE -->
-                        <img src="images/hillzadev.png" alt="Alex Doe Profile" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition duration-500">
+                        <img src="images/hillzadev.png" alt="Leto Hillza Profile" class="w-full h-full object-cover opacity-90 hover:opacity-100 transition duration-500">
                     </div>
-
-                    <!-- Small Floating Status Badge -->
                     <div class="absolute -bottom-4 -right-4 bg-black/90 border border-green-500/30 px-3 py-1 rounded text-[10px] font-mono text-green-400 backdrop-blur flex items-center gap-2 shadow-[0_0_15px_rgba(34,197,94,0.2)]">
                         <div class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></div>
                         ACTIVE
@@ -443,7 +447,7 @@
                         </div>
                         <h3 class="text-white font-bold group-hover:text-purple-400 transition">Optimizing RL Agents for TPUv4 Architecture</h3>
                     </div>
-                    <button class="text-xs font-mono text-gray-400 border border-white/10 px-4 py-2 rounded hover:bg-white hover:text-black transition">REQUEST_ACCESS</button>
+                    <a href="whitepaper.pdf" target="_blank" class="text-xs font-mono text-gray-400 border border-white/10 px-4 py-2 rounded hover:bg-white hover:text-black transition inline-block text-center">READ_WHITEPAPER</a>
                 </div>
             </div>
         </div>
@@ -466,9 +470,46 @@
         </div>
     </section>
 
+    <!-- Tech Stack Instrument Panel -->
+    <section class="py-20 border-t border-white/5 bg-black">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex items-center gap-4 mb-8 opacity-50">
+                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <h4 class="text-xs font-mono uppercase tracking-widest text-green-500">System_Dependencies</h4>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-4 text-center">
+                <div class="p-4 border border-white/10 rounded bg-white/5 hover:border-cyan-500/50 transition cursor-default">
+                    <div class="text-cyan-400 font-mono font-bold text-lg">C++</div>
+                    <div class="text-[10px] text-gray-500 mt-1">LOW LATENCY</div>
+                </div>
+                <div class="p-4 border border-white/10 rounded bg-white/5 hover:border-purple-500/50 transition cursor-default">
+                    <div class="text-purple-400 font-mono font-bold text-lg">Rust</div>
+                    <div class="text-[10px] text-gray-500 mt-1">MEMORY SAFE</div>
+                </div>
+                 <div class="p-4 border border-white/10 rounded bg-white/5 hover:border-blue-500/50 transition cursor-default">
+                    <div class="text-blue-400 font-mono font-bold text-lg">JAX</div>
+                    <div class="text-[10px] text-gray-500 mt-1">AUTOGRAD</div>
+                </div>
+                 <div class="p-4 border border-white/10 rounded bg-white/5 hover:border-yellow-500/50 transition cursor-default">
+                    <div class="text-yellow-400 font-mono font-bold text-lg">Verilog</div>
+                    <div class="text-[10px] text-gray-500 mt-1">HDL</div>
+                </div>
+                 <div class="p-4 border border-white/10 rounded bg-white/5 hover:border-red-500/50 transition cursor-default">
+                    <div class="text-red-400 font-mono font-bold text-lg">Torch</div>
+                    <div class="text-[10px] text-gray-500 mt-1">DEEP LEARNING</div>
+                </div>
+                 <div class="p-4 border border-white/10 rounded bg-white/5 hover:border-green-500/50 transition cursor-default">
+                    <div class="text-green-400 font-mono font-bold text-lg">TPUv4</div>
+                    <div class="text-[10px] text-gray-500 mt-1">HARDWARE</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer class="border-t border-white/5 py-8 text-center">
         <p class="text-gray-600 font-mono text-xs">
-            © 2025 Leto hillza. System status: <span class="text-green-500">Normal</span>.
+            © 2025 Leto Hillza. System status: <span class="text-green-500">Normal</span>.
         </p>
     </footer>
 
