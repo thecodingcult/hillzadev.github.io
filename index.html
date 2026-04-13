@@ -60,6 +60,7 @@
         .flip-card { background-color: transparent; height: 320px; perspective: 1000px; cursor: pointer; }
         .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
         .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
         .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); }
         .flip-card-front { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(10px); }
         .flip-card-back { background: linear-gradient(145deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.1)); background-color: #0a0a0a; transform: rotateY(180deg); border: 1px solid rgba(34, 211, 238, 0.3); padding: 1.5rem; }
@@ -664,7 +665,14 @@
         init();
         animate();
 
-        // 5. Mobile Menu
+        // 5. Flip Cards (tap to flip on mobile)
+        document.querySelectorAll('.flip-card').forEach(card => {
+            card.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
+        });
+
+        // 6. Mobile Menu
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
