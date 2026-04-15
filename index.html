@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'none'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; media-src 'self'; manifest-src 'self'; upgrade-insecure-requests">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     
     <!-- SEO & Social Media Meta Tags -->
     <title>Hillzadev | Neuromorphic Architect</title>
@@ -17,114 +19,17 @@
     <!-- Custom Microchip Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23050505' stroke='%2322d3ee' stroke-width='6'/><circle cx='50' cy='50' r='15' fill='%23a855f7'/></svg>">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="assets/frameguard.js"></script>
+    <script src="assets/site.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        'bg-main': '#050505',
-                        'cyan-glow': '#22d3ee', 
-                        'purple-glow': '#a855f7',
-                    },
-                    animation: {
-                        'spin-slow': 'spin 8s linear infinite',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body { background-color: #050505; color: #e5e5e5; overflow-x: hidden; perspective: 1000px; }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0a0a0a; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
-
-        canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
-
-        .glass-panel {
-            background: rgba(15, 15, 15, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
-        }
-
-        /* 3D FLIP CARD STYLES */
-        .flip-card { background-color: transparent; height: 320px; perspective: 1000px; cursor: pointer; }
-        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
-        .flip-card:hover .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); }
-        .flip-card-front { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(10px); }
-        .flip-card-back { background: linear-gradient(145deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.1)); background-color: #0a0a0a; transform: rotateY(180deg); border: 1px solid rgba(34, 211, 238, 0.3); padding: 1.5rem; }
-
-        /* Reveal Animation */
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.5, 0, 0, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Timeline */
-        .timeline-line { width: 2px; background: #1f2937; position: absolute; top: 0; bottom: 0; left: 20px; z-index: 0; }
-        .timeline-progress { width: 2px; background: linear-gradient(to bottom, #22d3ee, #a855f7); position: absolute; top: 0; left: 20px; height: 0%; z-index: 1; transition: height 0.1s linear; box-shadow: 0 0 10px rgba(34, 211, 238, 0.5); }
-
-        .blinking-cursor::after { content: '█'; animation: blink 1s step-start infinite; color: #22d3ee; margin-left: 2px; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* PROFILE IMAGE STYLES */
-        .profile-container {
-            position: relative;
-            width: 180px; 
-            height: 180px;
-        }
-        
-        .profile-ring {
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: conic-gradient(from 0deg, #22d3ee, #a855f7, #22d3ee);
-            opacity: 0.7;
-            filter: blur(8px);
-            animation: spin 6s linear infinite;
-        }
-
-        .profile-image-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: #000;
-        }
-
-        /* Scanline effect over image */
-        .profile-image-wrapper::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
-            background-size: 100% 4px;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-        
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        .transition-delay-100 { transition-delay: 100ms; }
-        .transition-delay-200 { transition-delay: 200ms; }
-        .transition-delay-300 { transition-delay: 300ms; }
-
-    </style>
+    <link rel="stylesheet" href="assets/tailwind.css">
+    <link rel="stylesheet" href="assets/site.css">
 </head>
 <body class="antialiased selection:bg-cyan-500/20 selection:text-cyan-200">
 
-    <canvas id="snn-canvas"></canvas>
+    <canvas id="snn-canvas" aria-hidden="true"></canvas>
 
     <!-- Navbar -->
     <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-black/80 backdrop-blur-xl">
@@ -140,12 +45,12 @@
                 <a href="#research" class="hover:text-cyan-400 transition">Research</a>
                 <a href="#contact" class="hover:text-cyan-400 transition">Contact</a>
             </div>
-            <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white transition p-1" aria-label="Toggle menu">
+            <button id="mobile-menu-btn" class="md:hidden text-gray-400 hover:text-white transition p-1" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
                 <svg id="menu-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 <svg id="close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-black/95">
+        <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-black/95" aria-hidden="true">
             <div class="flex flex-col gap-5 px-6 py-6 text-[11px] font-mono tracking-widest uppercase text-gray-500">
                 <a href="#architecture" class="hover:text-cyan-400 transition mobile-link">Systems</a>
                 <a href="#concepts" class="hover:text-cyan-400 transition mobile-link">Archives</a>
@@ -283,14 +188,14 @@
 
             <div class="grid md:grid-cols-4 gap-6">
                 <!-- Card 1 -->
-                <div class="flip-card reveal">
+                <div class="flip-card reveal" role="button" tabindex="0" aria-label="Toggle concept card: SNN" aria-pressed="false">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" aria-hidden="false">
                             <svg class="w-12 h-12 text-cyan-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             <h3 class="text-2xl font-bold text-white font-mono">SNN</h3>
                             <p class="text-xs text-gray-500 mt-2 tracking-widest">SPIKING NEURAL NET</p>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" aria-hidden="true">
                             <h4 class="text-cyan-400 font-bold text-lg mb-3">The "Brain-Like" AI</h4>
                             <p class="text-sm text-gray-300 leading-snug">
                                 Standard AI processes data continuously. <strong class="text-white">SNNs</strong> only "fire" when a spike occurs—just like biological neurons. This event-driven method drastically cuts energy use.
@@ -300,14 +205,14 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="flip-card reveal transition-delay-100">
+                <div class="flip-card reveal transition-delay-100" role="button" tabindex="0" aria-label="Toggle concept card: Reinforcement Learning" aria-pressed="false">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" aria-hidden="false">
                             <svg class="w-12 h-12 text-purple-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
                             <h3 class="text-2xl font-bold text-white font-mono">RL</h3>
                             <p class="text-xs text-gray-500 mt-2 tracking-widest">REINFORCEMENT LEARNING</p>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" aria-hidden="true">
                             <h4 class="text-purple-400 font-bold text-lg mb-3">Trial & Error at Scale</h4>
                             <p class="text-sm text-gray-300 leading-snug">
                                 An "Agent" learns to make decisions by interacting with an environment and receiving rewards. This is the logic engine behind my dynamic ad-budgeting systems.
@@ -317,14 +222,14 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="flip-card reveal transition-delay-200">
+                <div class="flip-card reveal transition-delay-200" role="button" tabindex="0" aria-label="Toggle concept card: Von Neumann Bottleneck" aria-pressed="false">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" aria-hidden="false">
                             <svg class="w-12 h-12 text-blue-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                             <h3 class="text-xl font-bold text-white font-mono text-center">VON NEUMANN</h3>
                             <p class="text-xs text-gray-500 mt-2 tracking-widest">THE BOTTLENECK</p>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" aria-hidden="true">
                             <h4 class="text-blue-400 font-bold text-lg mb-3">The Old Way</h4>
                             <p class="text-sm text-gray-300 leading-snug">
                                 Traditional chips separate memory and processing, wasting energy moving data. My work uses <strong class="text-white">Neuromorphic</strong> architecture, where memory and compute coexist.
@@ -334,14 +239,14 @@
                 </div>
 
                 <!-- Card 4 -->
-                <div class="flip-card reveal transition-delay-300">
+                <div class="flip-card reveal transition-delay-300" role="button" tabindex="0" aria-label="Toggle concept card: Edge Inference" aria-pressed="false">
                     <div class="flip-card-inner">
-                        <div class="flip-card-front">
+                        <div class="flip-card-front" aria-hidden="false">
                             <svg class="w-12 h-12 text-green-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                             <h3 class="text-2xl font-bold text-white font-mono">EDGE</h3>
                             <p class="text-xs text-gray-500 mt-2 tracking-widest">LOCAL INFERENCE</p>
                         </div>
-                        <div class="flip-card-back">
+                        <div class="flip-card-back" aria-hidden="true">
                             <h4 class="text-green-400 font-bold text-lg mb-3">Intelligence on Device</h4>
                             <p class="text-sm text-gray-300 leading-snug">
                                 Running AI directly on sensors rather than the cloud. This requires extreme efficiency—making Spiking Neural Networks the ideal solution.
@@ -456,7 +361,13 @@
                         </div>
                         <h3 class="text-white font-bold group-hover:text-cyan-400 transition">Event-Driven Memory Allocation for Sparse Tensors</h3>
                     </div>
-                    <button class="text-xs font-mono text-gray-400 border border-white/10 px-4 py-2 rounded hover:bg-white hover:text-black transition">VIEW_DOCS</button>
+                    <a
+                        href="mailto:google@letohillza.com?subject=Patent%20US-110452A%20Details%20Request"
+                        class="text-xs font-mono text-gray-400 border border-white/10 px-4 py-2 rounded hover:bg-white hover:text-black transition inline-block text-center"
+                        aria-label="Request details for Patent US-110452A"
+                    >
+                        REQUEST_DOCS
+                    </a>
                 </div>
 
                 <div class="glass-panel p-6 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 reveal transition-delay-100 group hover:bg-white/5 transition">
@@ -467,7 +378,7 @@
                         </div>
                         <h3 class="text-white font-bold group-hover:text-purple-400 transition">Optimizing RL Agents for TPUv4 Architecture</h3>
                     </div>
-                    <a href="whitepaper.pdf" target="_blank" class="text-xs font-mono text-gray-400 border border-white/10 px-4 py-2 rounded hover:bg-white hover:text-black transition inline-block text-center">READ_WHITEPAPER</a>
+                    <a href="whitepaper.pdf" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" class="text-xs font-mono text-gray-400 border border-white/10 px-4 py-2 rounded hover:bg-white hover:text-black transition inline-block text-center">READ_WHITEPAPER</a>
                 </div>
             </div>
         </div>
@@ -483,7 +394,7 @@
             <p class="text-gray-400 mb-10">
                 Interested in discussing the future of neuromorphic computing or hybrid AI architectures?
             </p>
-            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=google@letohillza.com" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold rounded hover:bg-cyan-500 hover:text-white transition duration-300">
+            <a href="mailto:google@letohillza.com?subject=Neuromorphic%20Computing%20Discussion" class="inline-flex items-center gap-3 bg-white text-black px-8 py-4 font-bold rounded hover:bg-cyan-500 hover:text-white transition duration-300">
                 <span>Send Signal</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
             </a>
@@ -535,10 +446,10 @@
             <a href="#" aria-label="LinkedIn" class="text-gray-600 hover:text-cyan-400 transition">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
             </a>
-            <a href="https://x.com/hiillza" target="_blank" rel="noopener noreferrer" aria-label="X / Twitter" class="text-gray-600 hover:text-cyan-400 transition">
+            <a href="https://x.com/hiillza" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="X / Twitter" class="text-gray-600 hover:text-cyan-400 transition">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
             </a>
-            <a href="https://medium.com/@hillzadev/above-the-spikes-iii-energy-sovereign-cognitive-systems-a-path-to-neuromorphic-nuclear-9c00422a4abb" target="_blank" rel="noopener noreferrer" aria-label="Medium" class="text-gray-600 hover:text-cyan-400 transition">
+            <a href="https://medium.com/@hillzadev/above-the-spikes-iii-energy-sovereign-cognitive-systems-a-path-to-neuromorphic-nuclear-9c00422a4abb" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="Medium" class="text-gray-600 hover:text-cyan-400 transition">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"></path></svg>
             </a>
         </div>
@@ -547,150 +458,5 @@
         </p>
     </footer>
 
-    <script>
-        // 1. Circuit Line Animation
-        window.addEventListener('scroll', () => {
-            const timeline = document.getElementById('experience');
-            const progressBar = document.getElementById('progress-bar');
-            const rect = timeline.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            
-            if (rect.top < windowHeight && rect.bottom > 0) {
-                let percentage = (windowHeight - rect.top) / rect.height * 100;
-                percentage = Math.max(0, Math.min(100, percentage));
-                progressBar.style.height = `${percentage}%`;
-            }
-        });
-
-        // 2. Reveal Elements
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-        // 3. Typewriter
-        const text = "> initializing_neural_architect...";
-        const typeElement = document.getElementById('typewriter');
-        let i = 0;
-        function type() {
-            if (i < text.length) {
-                typeElement.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, 50);
-            }
-        }
-        setTimeout(type, 500);
-
-        // 4. SNN Background
-        const canvas = document.getElementById('snn-canvas');
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let neurons = [];
-
-        window.addEventListener('resize', () => { resize(); init(); });
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-
-        class Neuron {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.vx = (Math.random() - 0.5) * 0.4;
-                this.vy = (Math.random() - 0.5) * 0.4;
-                this.size = Math.random() * 1.5 + 0.5;
-                this.pulse = 0;
-                this.pulseSpeed = Math.random() * 0.01 + 0.005;
-                this.isCyan = Math.random() > 0.5;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > width) this.vx *= -1;
-                if (this.y < 0 || this.y > height) this.vy *= -1;
-                this.pulse += this.pulseSpeed;
-                if (this.pulse > 1) this.pulse = 0;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                const isCyan = this.isCyan;
-                const alpha = 0.2 + (this.pulse > 0.9 ? (this.pulse - 0.9)*10 : 0);
-                ctx.fillStyle = isCyan 
-                    ? `rgba(34, 211, 238, ${alpha})` 
-                    : `rgba(168, 85, 247, ${alpha})`;
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            neurons = [];
-            for(let i=0; i<70; i++) neurons.push(new Neuron());
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, width, height);
-            for (let i = 0; i < neurons.length; i++) {
-                neurons[i].update();
-                neurons[i].draw();
-                for (let j = i; j < neurons.length; j++) {
-                    let dx = neurons[i].x - neurons[j].x;
-                    let dy = neurons[i].y - neurons[j].y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    if (dist < 150) {
-                        ctx.beginPath();
-                        let alpha = (1 - dist/150) * 0.1;
-                        if (neurons[i].pulse > 0.9 || neurons[j].pulse > 0.9) {
-                            ctx.strokeStyle = `rgba(34, 211, 238, ${alpha + 0.3})`;
-                        } else {
-                            ctx.strokeStyle = `rgba(100, 100, 100, ${alpha})`;
-                        }
-                        ctx.moveTo(neurons[i].x, neurons[i].y);
-                        ctx.lineTo(neurons[j].x, neurons[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(animate);
-        }
-
-        resize();
-        init();
-        animate();
-
-        // 5. Flip Cards (tap to flip on mobile)
-        document.querySelectorAll('.flip-card').forEach(card => {
-            card.addEventListener('click', () => {
-                card.classList.toggle('flipped');
-            });
-        });
-
-        // 6. Mobile Menu
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const menuIcon = document.getElementById('menu-icon');
-        const closeIcon = document.getElementById('close-icon');
-
-        mobileMenuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            menuIcon.classList.toggle('hidden');
-            closeIcon.classList.toggle('hidden');
-        });
-
-        document.querySelectorAll('.mobile-link').forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
-                menuIcon.classList.remove('hidden');
-                closeIcon.classList.add('hidden');
-            });
-        });
-    </script>
 </body>
 </html>

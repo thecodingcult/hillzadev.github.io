@@ -1,0 +1,92 @@
+body { background-color: #050505; color: #e5e5e5; overflow-x: hidden; perspective: 1000px; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+
+.glass-panel {
+    background: rgba(15, 15, 15, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.2);
+}
+
+/* 3D FLIP CARD STYLES */
+.flip-card { background-color: transparent; height: 320px; perspective: 1000px; cursor: pointer; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; }
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card:focus-visible { outline: 2px solid #22d3ee; outline-offset: 4px; border-radius: 0.75rem; }
+.flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 0.75rem; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); }
+.flip-card-front { background: rgba(20, 20, 20, 0.6); backdrop-filter: blur(10px); }
+.flip-card-back { background: linear-gradient(145deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.1)); background-color: #0a0a0a; transform: rotateY(180deg); border: 1px solid rgba(34, 211, 238, 0.3); padding: 1.5rem; }
+
+/* Reveal Animation */
+.reveal { opacity: 0; transform: translateY(20px); transition: all 0.7s cubic-bezier(0.5, 0, 0, 1); }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* Timeline */
+.timeline-line { width: 2px; background: #1f2937; position: absolute; top: 0; bottom: 0; left: 20px; z-index: 0; }
+.timeline-progress { width: 2px; background: linear-gradient(to bottom, #22d3ee, #a855f7); position: absolute; top: 0; left: 20px; height: 0%; z-index: 1; transition: height 0.1s linear; box-shadow: 0 0 10px rgba(34, 211, 238, 0.5); }
+
+.blinking-cursor::after { content: '█'; animation: blink 1s step-start infinite; color: #22d3ee; margin-left: 2px; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* PROFILE IMAGE STYLES */
+.profile-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+}
+
+.profile-ring {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, #22d3ee, #a855f7, #22d3ee);
+    opacity: 0.7;
+    filter: blur(8px);
+    animation: spin 6s linear infinite;
+}
+
+.profile-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: #000;
+}
+
+/* Scanline effect over image */
+.profile-image-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.3) 51%);
+    background-size: 100% 4px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+.transition-delay-100 { transition-delay: 100ms; }
+.transition-delay-200 { transition-delay: 200ms; }
+.transition-delay-300 { transition-delay: 300ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    .flip-card-inner,
+    .reveal,
+    .profile-ring,
+    .blinking-cursor::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
