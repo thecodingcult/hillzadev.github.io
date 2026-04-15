@@ -1,0 +1,4 @@
+.DS_Store
+.history/
+.claude/settings.local.json
+node_modules/
