@@ -1,4 +1,4 @@
 .DS_Store
 .history/
-.claude/settings.local.json
+.claude/
 node_modules/

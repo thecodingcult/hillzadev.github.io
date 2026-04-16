@@ -1,22 +1,72 @@
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // 1. Circuit Line Animation
-window.addEventListener('scroll', () => {
-    const timeline = document.getElementById('experience');
-    const progressBar = document.getElementById('progress-bar');
-    const rect = timeline.getBoundingClientRect();
+const experienceSection = document.getElementById('experience');
+const timelineContainer = experienceSection?.querySelector('.timeline');
+const progressBar = document.getElementById('progress-bar');
+let timelineTrackHeight = 0;
+let timelineAnimationFrame = 0;
+
+function syncTimelineGeometry() {
+    if (!timelineContainer) return;
+
+    const dots = timelineContainer.querySelectorAll('.timeline-dot, .timeline-dot-current');
+    if (dots.length === 0) return;
+
+    const containerRect = timelineContainer.getBoundingClientRect();
+    const firstDotRect = dots[0].getBoundingClientRect();
+    const lastDotRect = dots[dots.length - 1].getBoundingClientRect();
+
+    const trackTop = firstDotRect.top - containerRect.top + firstDotRect.height / 2;
+    const trackBottom = lastDotRect.top - containerRect.top + lastDotRect.height / 2;
+
+    timelineTrackHeight = Math.max(0, trackBottom - trackTop);
+    timelineContainer.style.setProperty('--timeline-track-top', `${trackTop}px`);
+    timelineContainer.style.setProperty('--timeline-track-height', `${timelineTrackHeight}px`);
+}
+
+function updateTimelineProgress() {
+    if (!experienceSection || !progressBar) return;
+
+    const rect = experienceSection.getBoundingClientRect();
     const windowHeight = window.innerHeight;
 
-    if (rect.top < windowHeight && rect.bottom > 0) {
-        let percentage = (windowHeight - rect.top) / rect.height * 100;
-        percentage = Math.max(0, Math.min(100, percentage));
-        progressBar.style.height = `${percentage}%`;
+    if (rect.top >= windowHeight) {
+        progressBar.style.height = '0px';
+        return;
     }
-});
+
+    if (rect.bottom <= 0) {
+        progressBar.style.height = `${timelineTrackHeight}px`;
+        return;
+    }
+
+    const percentage = Math.max(0, Math.min(1, (windowHeight - rect.top) / rect.height));
+    progressBar.style.height = `${timelineTrackHeight * percentage}px`;
+}
+
+function requestTimelineUpdate() {
+    if (timelineAnimationFrame) return;
+
+    timelineAnimationFrame = window.requestAnimationFrame(() => {
+        timelineAnimationFrame = 0;
+        syncTimelineGeometry();
+        updateTimelineProgress();
+    });
+}
+
+if (experienceSection && timelineContainer && progressBar) {
+    syncTimelineGeometry();
+    updateTimelineProgress();
+
+    window.addEventListener('scroll', requestTimelineUpdate, { passive: true });
+    window.addEventListener('resize', requestTimelineUpdate);
+    window.addEventListener('load', requestTimelineUpdate);
+}
 
 // 2. Reveal Elements
 const revealElements = document.querySelectorAll('.reveal');
-if (prefersReducedMotion) {
+if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
     revealElements.forEach((el) => el.classList.add('active'));
 } else {
     const observer = new IntersectionObserver((entries) => {
@@ -35,32 +85,35 @@ const text = '> initializing_neural_architect...';
 const typeElement = document.getElementById('typewriter');
 let i = 0;
 function type() {
-    if (i < text.length) {
+    if (typeElement && i < text.length) {
         typeElement.textContent += text.charAt(i);
         i++;
         setTimeout(type, 50);
     }
 }
-if (prefersReducedMotion) {
+if (typeElement && prefersReducedMotion) {
     typeElement.textContent = text;
-} else {
+} else if (typeElement) {
     setTimeout(type, 500);
 }
 
 // 4. SNN Background
 const canvas = document.getElementById('snn-canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas instanceof HTMLCanvasElement ? canvas.getContext('2d') : null;
 let width, height;
 let neurons = [];
 let animationFrameId = null;
 
-if (!prefersReducedMotion) {
+if (!canvas || !ctx) {
+    // Canvas is optional; skip the ambient background if unsupported.
+} else if (!prefersReducedMotion) {
     window.addEventListener('resize', () => { resize(); init(); });
 } else {
     canvas.style.display = 'none';
 }
 
 function resize() {
+    if (!canvas) return;
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
 }
@@ -102,6 +155,7 @@ function init() {
 }
 
 function animate() {
+    if (!ctx) return;
     ctx.clearRect(0, 0, width, height);
     for (let idx = 0; idx < neurons.length; idx++) {
         neurons[idx].update();
@@ -127,7 +181,7 @@ function animate() {
     animationFrameId = requestAnimationFrame(animate);
 }
 
-if (!prefersReducedMotion) {
+if (canvas && ctx && !prefersReducedMotion) {
     resize();
     init();
     animate();
@@ -176,6 +230,7 @@ const menuIcon = document.getElementById('menu-icon');
 const closeIcon = document.getElementById('close-icon');
 
 function setMobileMenuState(isOpen) {
+    if (!mobileMenu || !mobileMenuBtn || !menuIcon || !closeIcon) return;
     mobileMenu.classList.toggle('hidden', !isOpen);
     mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
     mobileMenu.setAttribute('aria-hidden', String(!isOpen));
@@ -183,9 +238,11 @@ function setMobileMenuState(isOpen) {
     closeIcon.classList.toggle('hidden', !isOpen);
 }
 
-mobileMenuBtn.addEventListener('click', () => {
-    setMobileMenuState(mobileMenu.classList.contains('hidden'));
-});
+if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        setMobileMenuState(mobileMenu.classList.contains('hidden'));
+    });
+}
 
 document.querySelectorAll('.mobile-link').forEach((link) => {
     link.addEventListener('click', () => {
@@ -201,7 +258,14 @@ document.addEventListener('keydown', (event) => {
 
 document.addEventListener('click', (event) => {
     const target = event.target;
-    if (!mobileMenu.classList.contains('hidden') && target instanceof Node && !mobileMenu.contains(target) && !mobileMenuBtn.contains(target)) {
+    if (
+        mobileMenu &&
+        mobileMenuBtn &&
+        !mobileMenu.classList.contains('hidden') &&
+        target instanceof Node &&
+        !mobileMenu.contains(target) &&
+        !mobileMenuBtn.contains(target)
+    ) {
         setMobileMenuState(false);
     }
 });

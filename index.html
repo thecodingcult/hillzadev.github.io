@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'none'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; media-src 'self'; manifest-src 'self'; upgrade-insecure-requests">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; style-src-attr 'none'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src 'none'; worker-src 'none'; media-src 'self'; manifest-src 'self'; upgrade-insecure-requests">
     <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="theme-color" content="#050505">
     
     <!-- SEO & Social Media Meta Tags -->
     <title>Hillzadev | Neuromorphic Architect</title>
     <meta name="description" content="Senior Staff Engineer at Google. Architecting the next generation of biological computing and SNNs.">
+    <link rel="canonical" href="https://letohillza.com/">
     <meta property="og:title" content="Hillzadev | Neuromorphic Architect">
     <meta property="og:description" content="Senior Staff Engineer at Google. Architecting the next generation of biological computing and SNNs.">
-    <meta property="og:image" content="https://hillzadev.github.io/images/hillzadev.png">
-    <meta property="og:url" content="https://hillzadev.github.io">
+    <meta property="og:image" content="https://letohillza.com/images/hillzadev.png">
+    <meta property="og:url" content="https://letohillza.com/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hillzadev | Neuromorphic Architect">
+    <meta name="twitter:description" content="Senior Staff Engineer at Google. Architecting the next generation of biological computing and SNNs.">
+    <meta name="twitter:image" content="https://letohillza.com/images/hillzadev.png">
 
     <!-- Custom Microchip Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23050505' stroke='%2322d3ee' stroke-width='6'/><circle cx='50' cy='50' r='15' fill='%23a855f7'/></svg>">
@@ -264,87 +269,110 @@
             <p class="font-mono text-xs tracking-[0.3em] uppercase text-cyan-400/60 mb-4 reveal">Career Trajectory</p>
             <h2 class="text-3xl font-bold text-white mb-16 reveal">Operational History</h2>
 
-            <div class="relative pl-12">
-                <!-- Animated Line -->
-                <div class="timeline-line"></div>
-                <div class="timeline-progress" id="progress-bar"></div>
+            <div class="timeline relative" role="list" aria-label="Career history">
+                <span class="timeline-line" aria-hidden="true"></span>
+                <span class="timeline-progress" id="progress-bar" aria-hidden="true"></span>
 
                 <!-- Job 1 — Current -->
-                <div class="reveal relative pb-16">
-                    <div class="timeline-dot-current"></div>
+                <article class="timeline-entry timeline-entry-current reveal" role="listitem">
+                    <div class="timeline-dot-current" aria-hidden="true"></div>
 
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
-                        <h3 class="text-2xl font-bold text-white">Senior Staff Software Engineer</h3>
-                        <span class="timeline-badge-active">Google &middot; Feb 2026 — Present</span>
-                    </div>
+                    <div class="timeline-entry-body">
+                        <div class="timeline-entry-header">
+                            <div class="timeline-entry-meta" aria-label="Company and dates">
+                                <span class="timeline-company timeline-company-current">Google</span>
+                                <span class="timeline-meta-separator" aria-hidden="true"></span>
+                                <span class="timeline-duration">Feb 2026 &mdash; Present</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Senior Staff Software Engineer</h3>
+                        </div>
 
-                    <div class="timeline-card timeline-card-active">
-                        <p class="text-gray-200 mb-5 font-semibold text-sm tracking-wide uppercase">Neuromorphic Computing & Hybrid AI</p>
-                        <ul class="timeline-list">
+                        <div class="timeline-card timeline-card-active">
+                            <p class="timeline-card-kicker">Neuromorphic Computing & Hybrid AI</p>
+                            <ul class="timeline-list">
                             <li>Integration of <strong class="text-gray-200">spiking neural networks (SNNs)</strong> into scalable production systems.</li>
                             <li>Designing neuromorphic algorithms optimized for low-power edge devices.</li>
                             <li>Driving cross-functional efforts for custom AI accelerators (TPU/ASIC).</li>
                             <li>Publishing internal whitepapers on brain-inspired computing paradigms.</li>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- Job 2 -->
-                <div class="reveal relative pb-16">
-                    <div class="timeline-dot"></div>
+                <article class="timeline-entry reveal" role="listitem">
+                    <div class="timeline-dot" aria-hidden="true"></div>
 
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
-                        <h3 class="text-xl font-bold text-gray-200">Staff Software Engineer</h3>
-                        <span class="timeline-badge">Google &middot; 2022 — 2026</span>
-                    </div>
+                    <div class="timeline-entry-body">
+                        <div class="timeline-entry-header">
+                            <div class="timeline-entry-meta" aria-label="Company and dates">
+                                <span class="timeline-company">Google</span>
+                                <span class="timeline-meta-separator" aria-hidden="true"></span>
+                                <span class="timeline-duration">2022 &mdash; 2026</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-200">Staff Software Engineer</h3>
+                        </div>
 
-                    <div class="timeline-card">
-                        <p class="text-gray-300 mb-4 font-semibold text-sm tracking-wide uppercase">Ads ML Infrastructure</p>
-                        <ul class="timeline-list">
+                        <div class="timeline-card">
+                            <p class="timeline-card-kicker">Ads ML Infrastructure</p>
+                            <ul class="timeline-list">
                             <li>Architected and pioneered the <strong class="text-gray-200">Budgeting Optimization System (BOS)</strong>, leveraging Reinforcement Learning (RL) to dynamically allocate multi-billion dollar ad spends. Developed the reward functions and policy gradients that balanced advertiser ROI with platform liquidity in real-time auctions.</li>
                             <li>Led the design of production-scale streaming pipelines for ad-click telemetry, enabling online learning and sub-minute model freshness. Integrated ScaNN-based retrieval and TFX orchestration to handle trillions of daily events with millisecond-level inference latency.</li>
                             <li>Partnered deeply with Site Reliability Engineering (SRE) to achieve <strong class="text-gray-200">99.999% availability</strong> for the core ads serving stack. Orchestrated global failover protocols and automated 'circuit-breaker' logic to protect revenue integrity during high-volatility market events.</li>
                             <li>Set the multi-year technical roadmap for Ads Infrastructure, driving engineering standards for ML reproducibility and observability. Mentored senior engineers across the organization on the deployment of distributed RL agents in production.</li>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- Job 3 -->
-                <div class="reveal relative pb-16">
-                    <div class="timeline-dot"></div>
+                <article class="timeline-entry reveal" role="listitem">
+                    <div class="timeline-dot" aria-hidden="true"></div>
 
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
-                        <h3 class="text-xl font-bold text-gray-200">Senior Software Engineer</h3>
-                        <span class="timeline-badge">Google &middot; 2020 — 2022</span>
-                    </div>
+                    <div class="timeline-entry-body">
+                        <div class="timeline-entry-header">
+                            <div class="timeline-entry-meta" aria-label="Company and dates">
+                                <span class="timeline-company">Google</span>
+                                <span class="timeline-meta-separator" aria-hidden="true"></span>
+                                <span class="timeline-duration">2020 &mdash; 2022</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-200">Senior Software Engineer</h3>
+                        </div>
 
-                    <div class="timeline-card">
-                        <p class="text-gray-300 mb-4 font-semibold text-sm tracking-wide uppercase">Workspace (Chat & Drive)</p>
-                        <ul class="timeline-list">
+                        <div class="timeline-card">
+                            <p class="timeline-card-kicker">Workspace (Chat & Drive)</p>
+                            <ul class="timeline-list">
                             <li>Reduced global deployment latency by <strong class="text-gray-200">60%</strong> for Google Workspace by architecting a unified TFX-based CI/CD pipeline, enabling sub-day iteration cycles for production ML models.</li>
                             <li>Scalability lead for Google Drive's collaboration engine; optimized p99 latency for real-time file state synchronization during a <strong class="text-gray-200">300% surge</strong> in global traffic (2020–2021).</li>
                             <li>Enhanced file discovery via semantic retrieval; integrated multi-signal ranking models into the Drive 'Priority' backend, significantly reducing 'time-to-file' for Enterprise users.</li>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </article>
 
                 <!-- Job 4 -->
-                <div class="reveal relative">
-                    <div class="timeline-dot"></div>
+                <article class="timeline-entry reveal" role="listitem">
+                    <div class="timeline-dot" aria-hidden="true"></div>
 
-                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
-                        <h3 class="text-xl font-bold text-gray-200">Software Engineer</h3>
-                        <span class="timeline-badge">Google &middot; 2018 — 2020</span>
-                    </div>
+                    <div class="timeline-entry-body">
+                        <div class="timeline-entry-header">
+                            <div class="timeline-entry-meta" aria-label="Company and dates">
+                                <span class="timeline-company">Google</span>
+                                <span class="timeline-meta-separator" aria-hidden="true"></span>
+                                <span class="timeline-duration">2018 &mdash; 2020</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-200">Software Engineer</h3>
+                        </div>
 
-                    <div class="timeline-card">
-                        <p class="text-gray-300 mb-4 font-semibold text-sm tracking-wide uppercase">Google Lens</p>
-                        <ul class="timeline-list">
+                        <div class="timeline-card">
+                            <p class="timeline-card-kicker">Google Lens</p>
+                            <ul class="timeline-list">
                             <li>Contributed to real-time image recognition features for Google Lens.</li>
                             <li>Architected and optimized end-to-end computer vision and retrieval pipelines for Google Lens, enabling real-time visual discovery for <strong class="text-gray-200">1B+ users</strong>. Leveraged multimodal learning to bridge the gap between pixel-level data and semantic understanding.</li>
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
@@ -441,11 +469,8 @@
 
     <footer class="border-t border-white/5 py-8 text-center">
         <div class="flex justify-center gap-6 mb-4">
-            <a href="#" aria-label="GitHub" class="text-gray-600 hover:text-cyan-400 transition">
+            <a href="https://github.com/thecodingcult/hillzadev.github.io" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="GitHub repository" class="text-gray-600 hover:text-cyan-400 transition">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path></svg>
-            </a>
-            <a href="#" aria-label="LinkedIn" class="text-gray-600 hover:text-cyan-400 transition">
-                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
             </a>
             <a href="https://x.com/hiillza" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="X / Twitter" class="text-gray-600 hover:text-cyan-400 transition">
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
