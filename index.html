@@ -261,26 +261,27 @@
     <!-- Experience Timeline -->
     <section id="experience" class="py-32 px-6">
         <div class="max-w-5xl mx-auto">
+            <p class="font-mono text-xs tracking-[0.3em] uppercase text-cyan-400/60 mb-4 reveal">Career Trajectory</p>
             <h2 class="text-3xl font-bold text-white mb-16 reveal">Operational History</h2>
 
-            <div class="relative pl-8 md:pl-12">
+            <div class="relative pl-12">
                 <!-- Animated Line -->
                 <div class="timeline-line"></div>
                 <div class="timeline-progress" id="progress-bar"></div>
 
-                <!-- Job 1 -->
-                <div class="reveal relative pb-20">
-                    <div class="absolute -left-[20px] md:-left-[36px] top-1 w-4 h-4 rounded-full bg-cyan-400 border-2 border-[#050505] shadow-[0_0_0_4px_rgba(34,211,238,0.15),0_0_20px_rgba(34,211,238,0.8)] z-10"></div>
-                    
-                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
+                <!-- Job 1 — Current -->
+                <div class="reveal relative pb-16">
+                    <div class="timeline-dot-current"></div>
+
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
                         <h3 class="text-2xl font-bold text-white">Senior Staff Software Engineer</h3>
-                        <span class="font-mono text-sm text-cyan-400">Google / Feb 2026 — Present</span>
+                        <span class="timeline-badge-active">Google &middot; Feb 2026 — Present</span>
                     </div>
-                    
-                    <div class="glass-panel p-6 rounded-lg border-l-2 border-cyan-500/50">
-                        <p class="text-gray-300 mb-4 font-medium">Neuromorphic Computing & Hybrid AI</p>
-                        <ul class="space-y-2 text-sm text-gray-400 list-disc list-outside pl-5 marker:text-cyan-400">
-                            <li>Integration of <strong>spiking neural networks (SNNs)</strong> into scalable production systems.</li>
+
+                    <div class="timeline-card timeline-card-active">
+                        <p class="text-gray-200 mb-5 font-semibold text-sm tracking-wide uppercase">Neuromorphic Computing & Hybrid AI</p>
+                        <ul class="timeline-list">
+                            <li>Integration of <strong class="text-gray-200">spiking neural networks (SNNs)</strong> into scalable production systems.</li>
                             <li>Designing neuromorphic algorithms optimized for low-power edge devices.</li>
                             <li>Driving cross-functional efforts for custom AI accelerators (TPU/ASIC).</li>
                             <li>Publishing internal whitepapers on brain-inspired computing paradigms.</li>
@@ -289,39 +290,39 @@
                 </div>
 
                 <!-- Job 2 -->
-                <div class="reveal relative pb-20">
-                    <div class="absolute -left-[27px] md:-left-[37px] top-1 w-4 h-4 rounded-full bg-gray-800 border-4 border-[#050505] z-10"></div>
-                    
-                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
-                        <h3 class="text-xl font-bold text-gray-300">Staff Software Engineer</h3>
-                        <span class="font-mono text-sm text-gray-500">Google / 2022 — 2026</span>
+                <div class="reveal relative pb-16">
+                    <div class="timeline-dot"></div>
+
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
+                        <h3 class="text-xl font-bold text-gray-200">Staff Software Engineer</h3>
+                        <span class="timeline-badge">Google &middot; 2022 — 2026</span>
                     </div>
-                    
-                    <div class="pl-2 border-l border-white/5">
-                        <p class="text-gray-400 mb-2 text-sm">Ads ML Infrastructure</p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li>Architected and pioneered the <strong>Budgeting Optimization System (BOS)</strong>, leveraging Reinforcement Learning (RL) to dynamically allocate multi-billion dollar ad spends. Developed the reward functions and policy gradients that balanced advertiser ROI with platform liquidity in real-time auctions.</li>
+
+                    <div class="timeline-card">
+                        <p class="text-gray-300 mb-4 font-semibold text-sm tracking-wide uppercase">Ads ML Infrastructure</p>
+                        <ul class="timeline-list">
+                            <li>Architected and pioneered the <strong class="text-gray-200">Budgeting Optimization System (BOS)</strong>, leveraging Reinforcement Learning (RL) to dynamically allocate multi-billion dollar ad spends. Developed the reward functions and policy gradients that balanced advertiser ROI with platform liquidity in real-time auctions.</li>
                             <li>Led the design of production-scale streaming pipelines for ad-click telemetry, enabling online learning and sub-minute model freshness. Integrated ScaNN-based retrieval and TFX orchestration to handle trillions of daily events with millisecond-level inference latency.</li>
-                            <li>Partnered deeply with Site Reliability Engineering (SRE) to achieve 99.999% availability for the core ads serving stack. Orchestrated global failover protocols and automated 'circuit-breaker' logic to protect revenue integrity during high-volatility market events.</li>
+                            <li>Partnered deeply with Site Reliability Engineering (SRE) to achieve <strong class="text-gray-200">99.999% availability</strong> for the core ads serving stack. Orchestrated global failover protocols and automated 'circuit-breaker' logic to protect revenue integrity during high-volatility market events.</li>
                             <li>Set the multi-year technical roadmap for Ads Infrastructure, driving engineering standards for ML reproducibility and observability. Mentored senior engineers across the organization on the deployment of distributed RL agents in production.</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- Job 3 -->
-                <div class="reveal relative pb-20">
-                    <div class="absolute -left-[27px] md:-left-[37px] top-1 w-4 h-4 rounded-full bg-gray-800 border-4 border-[#050505] z-10"></div>
-                    
-                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
-                        <h3 class="text-xl font-bold text-gray-300">Senior Software Engineer</h3>
-                        <span class="font-mono text-sm text-gray-500">Google / 2020 — 2022</span>
+                <div class="reveal relative pb-16">
+                    <div class="timeline-dot"></div>
+
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
+                        <h3 class="text-xl font-bold text-gray-200">Senior Software Engineer</h3>
+                        <span class="timeline-badge">Google &middot; 2020 — 2022</span>
                     </div>
-                    
-                    <div class="pl-2 border-l border-white/5">
-                        <p class="text-gray-400 mb-2 text-sm">Workspace (Chat & Drive)</p>
-                        <ul class="space-y-2 text-sm text-gray-500">
-                            <li>Reduced global deployment latency by 60% for Google Workspace by architecting a unified TFX-based CI/CD pipeline, enabling sub-day iteration cycles for production ML models.</li>
-                            <li>Scalability lead for Google Drive's collaboration engine; optimized p99 latency for real-time file state synchronization during a 300% surge in global traffic (2020–2021).</li>
+
+                    <div class="timeline-card">
+                        <p class="text-gray-300 mb-4 font-semibold text-sm tracking-wide uppercase">Workspace (Chat & Drive)</p>
+                        <ul class="timeline-list">
+                            <li>Reduced global deployment latency by <strong class="text-gray-200">60%</strong> for Google Workspace by architecting a unified TFX-based CI/CD pipeline, enabling sub-day iteration cycles for production ML models.</li>
+                            <li>Scalability lead for Google Drive's collaboration engine; optimized p99 latency for real-time file state synchronization during a <strong class="text-gray-200">300% surge</strong> in global traffic (2020–2021).</li>
                             <li>Enhanced file discovery via semantic retrieval; integrated multi-signal ranking models into the Drive 'Priority' backend, significantly reducing 'time-to-file' for Enterprise users.</li>
                         </ul>
                     </div>
@@ -329,18 +330,18 @@
 
                 <!-- Job 4 -->
                 <div class="reveal relative">
-                    <div class="absolute -left-[27px] md:-left-[37px] top-1 w-4 h-4 rounded-full bg-gray-800 border-4 border-[#050505] z-10"></div>
-                    
-                    <div class="flex flex-col md:flex-row md:items-baseline justify-between mb-4">
-                        <h3 class="text-xl font-bold text-gray-300">Software Engineer</h3>
-                        <span class="font-mono text-sm text-gray-500">Google / 2018 — 2020</span>
+                    <div class="timeline-dot"></div>
+
+                    <div class="flex flex-col md:flex-row md:items-center justify-between mb-5 gap-3">
+                        <h3 class="text-xl font-bold text-gray-200">Software Engineer</h3>
+                        <span class="timeline-badge">Google &middot; 2018 — 2020</span>
                     </div>
-                    
-                    <div class="pl-2 border-l border-white/5">
-                        <p class="text-gray-400 mb-2 text-sm">Google Lens</p>
-                        <ul class="space-y-2 text-sm text-gray-500">
+
+                    <div class="timeline-card">
+                        <p class="text-gray-300 mb-4 font-semibold text-sm tracking-wide uppercase">Google Lens</p>
+                        <ul class="timeline-list">
                             <li>Contributed to real-time image recognition features for Google Lens.</li>
-                            <li>Architected and optimized end-to-end computer vision and retrieval pipelines for Google Lens, enabling real-time visual discovery for 1B+ users. Leveraged multimodal learning to bridge the gap between pixel-level data and semantic understanding.</li>
+                            <li>Architected and optimized end-to-end computer vision and retrieval pipelines for Google Lens, enabling real-time visual discovery for <strong class="text-gray-200">1B+ users</strong>. Leveraged multimodal learning to bridge the gap between pixel-level data and semantic understanding.</li>
                         </ul>
                     </div>
                 </div>
