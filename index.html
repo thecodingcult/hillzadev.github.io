@@ -123,19 +123,19 @@
                 <div class="space-y-4 reveal">
                     <div class="text-cyan-400 font-bold text-xl">01. Biomimicry</div>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        Nature has had 3.5 billion years to optimize compute. We shouldn't reinvent the wheel; we should translate biology into silicon.
+                        Borrow from biology only where it improves efficiency, adaptability, and signal fidelity in real systems.
                     </p>
                 </div>
                 <div class="space-y-4 reveal transition-delay-100">
                     <div class="text-purple-400 font-bold text-xl">02. Asynchronicity</div>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        The world doesn't wait for a clock cycle. Efficient systems must be event-driven, reacting only when information changes.
+                        Compute should react to events, not waste power waiting for them. The best systems wake up only when the signal matters.
                     </p>
                 </div>
                 <div class="space-y-4 reveal transition-delay-200">
                     <div class="text-blue-400 font-bold text-xl">03. Scalability</div>
                     <p class="text-gray-400 text-sm leading-relaxed">
-                        A beautiful algorithm is useless if it can't run at Google scale. Reliability and throughput are first-class citizens.
+                        A model is only valuable when it survives production traffic, hard latency budgets, and real failure modes at scale.
                     </p>
                 </div>
             </div>
@@ -145,10 +145,14 @@
     <!-- Major Systems -->
     <section id="architecture" class="py-24 px-6">
         <div class="max-w-6xl mx-auto">
-            <div class="flex items-center gap-4 mb-12">
+            <div class="flex items-center gap-4 mb-6">
                 <h2 class="text-2xl font-bold text-white">Key Architectures</h2>
                 <div class="h-px bg-gray-800 flex-grow"></div>
             </div>
+            <p class="max-w-3xl text-sm text-gray-400 leading-relaxed mb-12 reveal">
+                Representative systems across reinforcement learning, retrieval, model delivery, and neuromorphic runtime design.
+                The through-line is production ML: high-scale inference, efficient adaptation, and architectures that survive real traffic.
+            </p>
 
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- BOS System -->
@@ -157,11 +161,39 @@
                         <div class="p-3 bg-purple-500/10 rounded-lg text-purple-400">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                         </div>
-                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">Ads Infrastructure</span>
+                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">Reinforcement Learning</span>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 group-hover:text-purple-400 transition">Budgeting Optimization System (BOS)</h3>
                     <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-                        Architected the real-time dynamic allocation engine for Google Ads. Utilized Reinforcement Learning to adjust spend pacing across millions of concurrent campaigns, balancing delivery guarantees with ROI.
+                        A real-time decision engine for Google Ads that used reinforcement learning to optimize pacing, allocation, and market liquidity across multi-billion-dollar spend.
+                    </p>
+                </div>
+
+                <!-- Retrieval -->
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-1 transition duration-500 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 bg-blue-500/10 rounded-lg text-blue-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                        </div>
+                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">Retrieval & Ranking</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-400 transition">Semantic Discovery Stack</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        Retrieval and ranking systems for Google Drive and Ads that combined embeddings, nearest-neighbor search, and intent signals to surface the right result under tight latency budgets.
+                    </p>
+                </div>
+
+                <!-- ML Platform -->
+                <div class="glass-panel p-8 rounded-xl hover:-translate-y-1 transition duration-500 group">
+                    <div class="flex justify-between items-start mb-6">
+                        <div class="p-3 bg-green-500/10 rounded-lg text-green-400">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M4 12h16M4 17h10"></path></svg>
+                        </div>
+                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">ML Platform</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-green-400 transition">ML Deployment & Model Freshness</h3>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">
+                        Production pipelines for training, deployment, and low-latency serving that kept models fresh in hours instead of days while maintaining reliability at global scale.
                     </p>
                 </div>
 
@@ -171,11 +203,11 @@
                         <div class="p-3 bg-cyan-500/10 rounded-lg text-cyan-400">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                         </div>
-                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">R&D / Hardware</span>
+                        <span class="font-mono text-xs text-gray-500 border border-white/10 px-2 py-1 rounded">Neuromorphic Runtime</span>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition">Hybrid SNN Edge Runtime</h3>
                     <p class="text-gray-400 text-sm mb-6 leading-relaxed">
-                        Currently leading the design of a low-power runtime for Spiking Neural Networks. Enabling event-based processing on edge devices, reducing power consumption by 40% compared to standard ANN inference.
+                        A low-power runtime for spiking neural networks that pushed event-driven inference closer to the sensor, reducing wasted compute and power on edge hardware.
                     </p>
                 </div>
             </div>
